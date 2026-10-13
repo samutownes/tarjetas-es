@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+  <meta name="theme-color" content="#1f4d3a" />
+  <meta name="description" content="Tarjetas de vocabulario — Intermediate Spanish Podcast E1–E100" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Tarjetas ES" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>Tarjetas · Español Intermedio E1–E100</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/icons/icon-120.png" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div>
+        <h1 id="ui-title">Tarjetas de vocabulario</h1>
+        <p class="subtitle" id="ui-subtitle">Podcast Intermedio E1–E100</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="icon-btn" id="btn-lang" title="EN">EN</button>
+      <button type="button" class="icon-btn" id="btn-help" title="Ayuda" aria-label="Ayuda">?</button>
+      <button type="button" class="icon-btn" id="btn-settings" title="Ajustes" aria-label="Ajustes">⚙</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="stats-bar" aria-live="polite">
+      <div class="stat">
+        <div class="label" id="label-remaining">Pendientes</div>
+        <div class="value" id="stat-remaining">0</div>
+      </div>
+      <div class="stat">
+        <div class="label" id="label-known">Dominadas</div>
+        <div class="value" id="stat-known">0</div>
+      </div>
+      <div class="stat">
+        <div class="label" id="label-streak">Racha</div>
+        <div class="value" id="stat-streak">0</div>
+      </div>
+    </div>
+
+    <div class="mode-row">
+      <select class="select" id="tier-select" aria-label="Mazo">
+        <option value="phrases_hot" selected>★ Frases frecuentes</option>
+        <option value="phrases_all">Todas las frases</option>
+        <option value="phrases_mid">Frases intermedias</option>
+        <option value="phrases_rare">Frases menos frecuentes</option>
+        <option value="phrases_spain">Frases con nota España</option>
+        <option value="words_hot">Palabras muy frecuentes</option>
+        <option value="words_all">Todas las palabras</option>
+        <option value="words_mid">Palabras intermedias</option>
+        <option value="words_rare">Palabras raras</option>
+        <option value="words_spain">Palabras con nota España</option>
+      </select>
+      <button type="button" class="chip" id="btn-shuffle">Barajar</button>
+      <button type="button" class="chip active" id="btn-due">Repasar primero</button>
+      <button type="button" class="chip" id="btn-dir">ES → EN</button>
+    </div>
+
+    <div class="deck-progress" aria-hidden="true">
+      <span id="deck-progress-fill"></span>
+    </div>
+
+    <div class="card-stage">
+      <div class="flashcard" id="flashcard" role="group" aria-label="Tarjeta">
+        <div class="flashcard-inner">
+          <div class="card-top">
+            <span class="badge pos" id="badge-pos">n.</span>
+            <div style="display:flex;gap:0.35rem;flex-wrap:wrap;justify-content:flex-end">
+              <span class="badge spain" id="badge-spain" hidden>España</span>
+              <span class="badge dir" id="badge-dir">ES → EN</span>
+            </div>
+          </div>
+          <div class="prompt-label" id="prompt-label">Palabra</div>
+          <div class="prompt-word" id="prompt-word">…</div>
+          <div class="reveal-area">
+            <form class="answer-form" id="answer-form" autocomplete="off">
+              <label class="answer-label" id="answer-label" for="answer-input">Escribe la traducción en inglés</label>
+              <div class="answer-row">
+                <input
+                  type="text"
+                  id="answer-input"
+                  class="answer-input"
+                  enterkeyhint="go"
+                  inputmode="text"
+                  autocomplete="off"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  aria-describedby="answer-feedback"
+                />
+                <button type="submit" class="btn btn-submit" id="btn-submit">Comprobar</button>
+              </div>
+            </form>
+            <div class="answer-feedback hidden" id="answer-feedback" aria-live="polite"></div>
+            <button type="button" class="link-btn" id="btn-show" hidden>Ver respuesta</button>
+            <div class="answer-block hidden" id="answer-block">
+              <div class="answer-word" id="answer-word"></div>
+              <div class="answer-note" id="answer-note" hidden></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty-state" id="empty-state">
+        <h2 id="empty-title">¡Sesión completa!</h2>
+        <p id="empty-body">No hay más tarjetas en este filtro.</p>
+        <button type="button" class="btn btn-known" id="empty-reset">Reiniciar pendientes de este filtro</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn btn-again" id="btn-again" disabled>↩ Otra vez</button>
+      <button type="button" class="btn btn-known" id="btn-known" disabled>✓ La sé</button>
+    </div>
+  </main>
+
+  <p class="app-footer" id="app-footer">Datos embebidos · sin servidor · offline</p>
+
+  <div class="overlay" id="overlay-help" role="dialog" aria-modal="true">
+    <div class="panel">
+      <div class="close-row">
+        <button type="button" class="icon-btn" data-close="overlay-help" style="color:var(--ink);border-color:var(--cream-dark);background:var(--cream)">✕</button>
+      </div>
+      <div id="help-content"></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay-settings" role="dialog" aria-modal="true">
+    <div class="panel" id="settings-content">
+      <div class="close-row">
+        <button type="button" class="icon-btn" data-close="overlay-settings" style="color:var(--ink);border-color:var(--cream-dark);background:var(--cream)">✕</button>
+      </div>
+      <h2 data-i18n="settings">Ajustes</h2>
+      <p data-i18n="blurb">El progreso (SM-2 simplificado) se guarda en este navegador (localStorage).</p>
+      <div class="row">
+        <button type="button" class="btn btn-danger" id="btn-reset-all" data-i18n="reset">Borrar todo el progreso</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/dictionary.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Keep the answer box visible when the iOS keyboard opens
+    (function () {
+      var inp = document.getElementById('answer-input');
+      function reveal() {
+        setTimeout(function () { inp.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 300);
+      }
+      inp.addEventListener('focus', reveal);
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', function () {
+          if (document.activeElement === inp) reveal();
+        });
+      }
+    })();
+    // Service worker only works over http(s) / localhost — not file://
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        if (location.protocol === 'file:') return;
+        navigator.serviceWorker.register('./sw.js').catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>
